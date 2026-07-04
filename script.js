@@ -376,4 +376,56 @@
       });
     }, 5000);
   })();
+
+  /* ---- GHL hero-form auto-height ----
+     We deliberately don't load GHL's form_embed.js because it blanks duplicate
+     embeds of the same form on one page (every copy reports the same internal id,
+     so its getElementById routing collides). Instead we speak the same
+     iframe-resizer protocol directly and route each height message to the iframe
+     that actually SENT it (e.source), so multiple copies each size correctly.
+     Scoped to the hero / service-page form frames; the cost band keeps its crop
+     and the modal keeps its own scroll. Progressive enhancement: if a form never
+     reports a height, the CSS fallback height stands, so this can't break layout. */
+  (function () {
+    var GHL_ORIGIN = "https://leadhubb.alegresolutionsgs.com";
+    var PREFIX = "[iFrameSizer]";
+    function targets() {
+      return Array.prototype.slice.call(
+        document.querySelectorAll(".hero-form-frame iframe")
+      );
+    }
+    /* init string, same field order as form_embed.js:
+       id:bodyMargin:sizeWidth:log:interval:enablePublicMethods:autoResize:
+       bodyMargin:heightCalculationMethod:bodyBackground:bodyPadding:tolerance */
+    function sendInit(frame) {
+      if (!frame.id) frame.id = "ghl-" + Math.random().toString(36).slice(2);
+      var init = PREFIX + frame.id + ":0:false:false:32:true:true:0px:bodyOffset:::0";
+      try { frame.contentWindow.postMessage(init, GHL_ORIGIN); } catch (e) {}
+    }
+    function wire(frame) {
+      if (frame.__ghlSized) return;
+      frame.__ghlSized = true;
+      var kick = function () {
+        sendInit(frame);
+        setTimeout(function () { sendInit(frame); }, 400);
+        setTimeout(function () { sendInit(frame); }, 1500);
+      };
+      frame.addEventListener("load", kick);
+      try { if (frame.contentWindow) kick(); } catch (e) {}
+    }
+    window.addEventListener("message", function (e) {
+      if (e.origin !== GHL_ORIGIN) return;
+      if (typeof e.data !== "string" || e.data.indexOf(PREFIX) !== 0) return;
+      var h = parseFloat(e.data.slice(PREFIX.length).split(":")[1]);
+      if (!h || h < 120) return;
+      var frames = targets();
+      for (var i = 0; i < frames.length; i++) {
+        if (frames[i].contentWindow === e.source) {
+          frames[i].style.height = Math.ceil(h) + "px";
+          break;
+        }
+      }
+    });
+    targets().forEach(wire);
+  })();
 })();

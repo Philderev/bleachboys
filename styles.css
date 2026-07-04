@@ -1167,45 +1167,54 @@ body.modal-open { overflow: hidden; }
 /* ============================================================
    TRUST INDICATORS
    ============================================================ */
-/* trust-indicator marquee */
-.stats-marquee {
-  overflow: hidden;
-  margin-top: 64px;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-}
-.stats-track {
-  display: flex;
-  width: max-content;
-  animation: statsMarquee 26s linear infinite;
-}
-.stats-track:hover { animation-play-state: paused; }
-@keyframes statsMarquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .stats-track { animation: none; flex-wrap: wrap; justify-content: center; }
-}
-.stat {
-  flex: 0 0 auto;
-  width: clamp(170px, 20vw, 230px);
-  margin-right: 1rem;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  box-shadow: var(--shadow-card);
-  padding: 1.4rem 1.1rem;
+.trust-strip {
+  width: min(100% - 2rem, 620px);
+  margin: 42px auto 0;
+  color: var(--ink);
   text-align: center;
 }
-.stat .num {
-  font-size: clamp(1.4rem, 2.4vw, 2rem);
-  font-weight: 800;
-  letter-spacing: -.02em;
-  line-height: 1;
+.trust-hours {
+  margin: 0 0 .45rem;
+  font-size: clamp(.86rem, 1.8vw, 1rem);
+  line-height: 1.35;
+  font-weight: 650;
 }
-.stat .num .accent { color: var(--gold); }
-.stat .lbl { margin-top: .4rem; font-size: .82rem; color: var(--muted); font-weight: 600; }
+.trust-strip-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  min-height: 1.55rem;
+  font-size: clamp(.86rem, 1.8vw, .98rem);
+  line-height: 1.35;
+  font-weight: 650;
+  flex-wrap: wrap;
+}
+.trust-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: .28rem;
+}
+.trust-rating > span {
+  color: var(--gold);
+  font-size: .95em;
+  letter-spacing: 0;
+}
+.trust-strip-row--muted { margin-top: .18rem; }
+.trust-dot {
+  width: .58rem;
+  height: .58rem;
+  border-radius: 50%;
+  background: var(--green);
+  flex: 0 0 auto;
+}
+
+@media (max-width: 520px) {
+  .trust-strip {
+    width: min(100% - 1.25rem, 360px);
+    margin-top: 32px;
+  }
+}
 
 /* ============================================================
    PRICING
