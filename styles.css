@@ -656,7 +656,8 @@ body.modal-open { overflow: hidden; }
   opacity: .82;
   transition: opacity .2s ease;
 }
-.nav-links a:hover { opacity: 1; }
+.nav-links a { transition: opacity .2s ease, color .2s ease; }
+.nav-links a:hover { opacity: 1; color: #4da3ff; }
 
 /* nav dropdowns (Services / Service Areas) */
 .nav-links .has-dropdown { position: relative; }
@@ -753,7 +754,9 @@ body.modal-open { overflow: hidden; }
   display: inline-flex;
   align-items: center;
   gap: .4rem;
+  transition: color .2s ease;
 }
+.nav-phone:hover { color: #4da3ff; }
 
 /* two-column hero layout */
 .hero-grid {
