@@ -1862,10 +1862,9 @@ body.modal-open { overflow: hidden; }
 .cost-cta-form {
   max-width: 560px;
   margin: 0 auto;
-  background: #fff;
+  background: transparent;
   border-radius: var(--r-md);
   overflow: hidden;
-  box-shadow: var(--shadow-pop);
   height: 255px; /* hug the scaled form so there's no scrollbar and no empty gap below */
 }
 /* Zoom the embedded form out and crop its top whitespace so the whole form
