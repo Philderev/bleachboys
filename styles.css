@@ -813,11 +813,14 @@ body.modal-open { overflow: hidden; }
 /* Match the service-page form layout: let the frame grow to fit the whole form
    (no crop/scale) so the entire form shows with no internal scrollbar. */
 .hero-form .hero-form-frame {
-  height: 410px;
+  height: 370px;
   overflow: hidden; /* crop the empty space below the form (no scrollbar) */
 }
 .hero-form .hero-form-frame iframe {
   height: 620px; /* tall enough to contain the whole form — no internal scrollbar */
+  width: calc(100% / 0.85);
+  transform: scale(0.85); /* zoom the form out so it's more compact */
+  transform-origin: top center;
 }
 .hero-form-frame iframe {
   width: 100%;
@@ -2050,7 +2053,7 @@ body.modal-open { overflow: hidden; }
 @media (max-width: 960px) {
   .hero-grid { grid-template-columns: 1fr; }
   .hero-body { max-width: none; }
-  .hero-form .hero-form-frame { height: 500px; }
+  .hero-form .hero-form-frame { height: 440px; }
   .cost-cta-form { height: 365px; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .pricing-grid,
