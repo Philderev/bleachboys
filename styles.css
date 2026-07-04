@@ -960,6 +960,11 @@ body.modal-open { overflow: hidden; }
   align-items: center;
   gap: .45rem;
 }
+.hero-badges .stars {
+  color: var(--gold);
+  letter-spacing: 0;
+}
+.hero-badges strong { color: var(--ink); }
 .hero-badges .dot {
   width: 8px;
   height: 8px;
@@ -1163,58 +1168,6 @@ body.modal-open { overflow: hidden; }
 /* intro sits inline with the CTA; drop its bottom margin so its last line
    is the true baseline the button aligns to */
 .quote-foot .quote-intro { margin-bottom: 0; }
-
-/* ============================================================
-   TRUST INDICATORS
-   ============================================================ */
-.trust-strip {
-  width: min(100% - 2rem, 620px);
-  margin: 42px auto 0;
-  color: var(--ink);
-  text-align: center;
-}
-.trust-hours {
-  margin: 0 0 .45rem;
-  font-size: clamp(.86rem, 1.8vw, 1rem);
-  line-height: 1.35;
-  font-weight: 650;
-}
-.trust-strip-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .45rem;
-  min-height: 1.55rem;
-  font-size: clamp(.86rem, 1.8vw, .98rem);
-  line-height: 1.35;
-  font-weight: 650;
-  flex-wrap: wrap;
-}
-.trust-rating {
-  display: inline-flex;
-  align-items: center;
-  gap: .28rem;
-}
-.trust-rating > span {
-  color: var(--gold);
-  font-size: .95em;
-  letter-spacing: 0;
-}
-.trust-strip-row--muted { margin-top: .18rem; }
-.trust-dot {
-  width: .58rem;
-  height: .58rem;
-  border-radius: 50%;
-  background: var(--green);
-  flex: 0 0 auto;
-}
-
-@media (max-width: 520px) {
-  .trust-strip {
-    width: min(100% - 1.25rem, 360px);
-    margin-top: 32px;
-  }
-}
 
 /* ============================================================
    PRICING
