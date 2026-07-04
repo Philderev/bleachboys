@@ -1865,7 +1865,7 @@ body.modal-open { overflow: hidden; }
   background: transparent;
   border-radius: var(--r-md);
   overflow: hidden;
-  height: 255px; /* hug the scaled form so there's no scrollbar and no empty gap below */
+  height: 315px; /* hug the scaled form so there's no scrollbar and no empty gap below */
 }
 /* Zoom the embedded form out and crop its top whitespace so the whole form
    (through the Submit button) fits in the frame without an internal scrollbar.
@@ -2052,7 +2052,7 @@ body.modal-open { overflow: hidden; }
   .hero-grid { grid-template-columns: 1fr; }
   .hero-body { max-width: none; }
   .hero-form-frame { height: 490px; }
-  .cost-cta-form { height: 275px; }
+  .cost-cta-form { height: 335px; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .pricing-grid,
   .services-grid,
