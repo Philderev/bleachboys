@@ -810,15 +810,14 @@ body.modal-open { overflow: hidden; }
   margin-left: calc(-1 * clamp(20px, 2.2vw, 28px));
   margin-right: calc(-1 * clamp(20px, 2.2vw, 28px));
 }
-/* pull the form up so the first field sits just under the subheadline —
-   crops the form's built-in top padding, which the frame's overflow clips */
-.hero-form > .hero-form-frame iframe {
-  margin-top: -56px;
-  /* zoom the embedded form out (~20px / 4%): render it slightly larger, then
-     scale it back down so it still fills the frame but the content is smaller */
-  width: calc(100% / 0.96);
-  transform: scale(0.96);
-  transform-origin: top center;
+/* Match the service-page form layout: let the frame grow to fit the whole form
+   (no crop/scale) so the entire form shows with no internal scrollbar. */
+.hero-form .hero-form-frame {
+  height: auto;
+  min-height: 478px;
+}
+.hero-form .hero-form-frame iframe {
+  height: 620px; /* tall enough to contain the whole form — no internal scrollbar */
 }
 .hero-form-frame iframe {
   width: 100%;
