@@ -320,4 +320,51 @@
     });
     document.body.appendChild(banner);
   })();
+
+  /* ---- GHL embed resilience ----
+     GHL forms load inside a cross-origin iframe and occasionally stall on a
+     bad/stale cache, forcing users to hard-refresh. This warms the connection
+     and, if a form iframe never fires its `load` event, reloads it once with a
+     cache-buster so the user never has to hit Ctrl+Shift+R. */
+  (function () {
+    var GHL_ORIGIN = "https://leadhubb.alegresolutionsgs.com";
+    var frames = Array.prototype.slice.call(
+      document.querySelectorAll('iframe[src*="leadhubb.alegresolutionsgs.com"]')
+    );
+    if (!frames.length) return;
+
+    /* Warm up the GHL host before the iframe requests fire. */
+    ["preconnect", "dns-prefetch"].forEach(function (rel) {
+      var link = document.createElement("link");
+      link.rel = rel;
+      link.href = GHL_ORIGIN;
+      if (rel === "preconnect") link.crossOrigin = "anonymous";
+      document.head.appendChild(link);
+    });
+
+    /* Fail-safe: reload a stalled iframe once, bypassing any stuck cache.
+       A frame is considered healthy if it fires `load` OR if GHL posts a
+       message from its origin (form_embed.js sends sizing messages once the
+       form renders) — this avoids a false retry when a warm-cached frame
+       loads before this listener attaches. */
+    var healthy = false;
+    var retried = false;
+    window.addEventListener("message", function (e) {
+      if (e.origin === GHL_ORIGIN) healthy = true;
+    });
+    frames.forEach(function (frame) {
+      frame.addEventListener("load", function () {
+        healthy = true;
+      });
+    });
+    setTimeout(function () {
+      if (healthy || retried) return;
+      retried = true;
+      frames.forEach(function (frame) {
+        var src = frame.getAttribute("src");
+        frame.src =
+          src + (src.indexOf("?") === -1 ? "?" : "&") + "_r=" + Date.now();
+      });
+    }, 5000);
+  })();
 })();
