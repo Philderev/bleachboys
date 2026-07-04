@@ -1866,11 +1866,18 @@ body.modal-open { overflow: hidden; }
   border-radius: var(--r-md);
   overflow: hidden;
   box-shadow: var(--shadow-pop);
-  min-height: 478px; /* reserve space, but grow to fit the whole form incl. its bottom padding */
+  height: 430px; /* fixed height; crop the scaled form so there's no scrollbar */
 }
+/* Zoom the embedded form out and crop its top whitespace so the whole form
+   (through the Submit button) fits in the frame without an internal scrollbar.
+   Needed because we no longer load GHL's form_embed.js auto-resizer. */
 .cost-cta-form iframe {
-  width: 100%;
-  height: 560px; /* fallback; LeadHub auto-resizes to the true content height so nothing is clipped */
+  width: 153.85%;              /* 100 / 0.65 -> scales back to full width */
+  height: 1150px;              /* taller than the form so it never scrolls internally */
+  transform: scale(0.65);
+  transform-origin: top left;
+  margin-right: -53.85%;
+  margin-top: -20px;           /* crop the form's built-in top padding */
   border: 0;
   display: block;
 }
@@ -2046,7 +2053,7 @@ body.modal-open { overflow: hidden; }
   .hero-grid { grid-template-columns: 1fr; }
   .hero-body { max-width: none; }
   .hero-form-frame { height: 490px; }
-  .cost-cta-form { min-height: 490px; }
+  .cost-cta-form { height: 490px; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .pricing-grid,
   .services-grid,
