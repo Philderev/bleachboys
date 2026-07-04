@@ -312,7 +312,7 @@
     banner.setAttribute("aria-label", "Cookie notice");
     banner.innerHTML =
       '<p class="cookie-banner__text">We use cookies to improve your experience. ' +
-      '<a href="/bleachboys/legal/privacy-policy/">Learn more</a>.</p>' +
+      '<a href="/bleachboys/legal/cookie-policy/">Learn more</a>.</p>' +
       '<button class="cookie-banner__btn" type="button">Got it</button>';
     banner.querySelector("button").addEventListener("click", function () {
       document.cookie = "cookieConsent=1; path=/; max-age=31536000";
